@@ -6,7 +6,7 @@
 # Version: 1.1
 ###############################################################################
 """
-    Character class and main functions!
+    Character class and main functions, map and main logic
 """
 ###############################################################################
 # Imports and Global Variables-------------------------------------------------
