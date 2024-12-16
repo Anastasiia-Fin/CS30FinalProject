@@ -1,9 +1,9 @@
 ###############################################################################
-# Title:
+# Title: Survival Bunker
 # Name: Anastasiia Finovska Kiera Fellinger
 # Class: CS30
 # Assignment: Final Project
-# Version: 1.1
+# Version: 1.2
 ###############################################################################
 """
     Character class and main functions, map and main logic
