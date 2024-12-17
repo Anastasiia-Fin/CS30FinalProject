@@ -3,10 +3,10 @@
 # Name: Anastasiia Finovska Kiera Fellinger
 # Class: CS30
 # Assignment: Final Project
-# Version: 1.2
+# Version: 1.3
 ###############################################################################
 """
-    Character class and main functions, map and main logic
+    Character class and main functions, map and main logic, Storage class
 """
 ###############################################################################
 # Imports and Global Variables-------------------------------------------------
