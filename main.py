@@ -31,6 +31,16 @@ rooms = {"storage": {"description": "PLACE HOLDER"},
         "utility": {"description": "PLACE HOLDER"},
         "medical room": {"description": "PLACE HOLDER"}}
 
+items = {"water": {"name": "water", "description": "PLACE HOLDER", "value": 20},
+         "food": {"name": "food", "description": "PLACE HOLDER", "value": 20},
+         "medical supplies": {"name": "medical_supplies", "description": "PLACE HOLDER", "value": True},
+         "weapons": {"gun": {"description": "PLACE HOLDER", "value": True},
+                     "ammunition": {"description": "PLACE HOLDER", "value": True},
+                     "axe": {"description": "PLACE HOLDER", "value": True},
+                     "hands": {"description": "PLACE HOLDER", "value": True}},
+         "radio": {"name": "radio", "description": "PLACE HOLDER", "value": True},
+         "flashlight": {"name": "flashlight", "description": "PLACE HOLDER", "value": True}}
+
 map = [["Storage", "Washroom"],
        ["Main Room"],
        ["Utility", "Medical Room"]]
@@ -38,34 +48,29 @@ map = [["Storage", "Washroom"],
 # Functions--------------------------------------------------------------------
 class Character:
 
-    def __init__(self, name, role, description, status, infected):
+    def __init__(self, name, role, description, status, infected, inventory):
         self.name = name
         self.role = role
         self.description = description
         self.status = status
         self.infected = infected
+        self.inventory = inventory
 
     def __str__(self):
-        message = f"Attributes: {self.name}, {self.role}, {self.description}, {self.status}, {self.infected}."
+        message = (f"Attributes: {self.name}, {self.role}, {self.description},{self.status}, {self.infected}, {self.inventory}")
         return message
 
+    def add_item(self, item):
+        self.inventory.append(item)
 
-class Item:
-
-    def __init__(self):
-        pass
-
-class Storage:
-
-    def __init__(self):
-        pass
-
-class Items:
-    pass
+    def destroy_item(self, item):
+        self.inventory.remove(item)
 
 
 class Storage:
-    pass
+
+    def __init__(self, item_list):
+        self.item_list = item_list
 
 
 def win():
@@ -263,14 +268,27 @@ def game():
 
 # Main-------------------------------------------------------------------------
 make_map()
-player = Character("Bob", "player", "description", True, False)
-print(player)
-DrTucker = Character(npc["Dr.Tucker"]["name"], npc["Dr.Tucker"]["role"], npc["Dr.Tucker"]["description"], npc["Dr.Tucker"]["status"], npc["Dr.Tucker"]["infected"])
+# Create storage
+player_items = items
+# Create characters
+player = Character("Bob", "player", "description", True, False, player_items)
+DrTucker = Character(npc["Dr.Tucker"]["name"], npc["Dr.Tucker"]["role"],
+                     npc["Dr.Tucker"]["description"],
+                     npc["Dr.Tucker"]["status"], npc["Dr.Tucker"]["infected"],
+                     None)
 print(DrTucker)
-Ella = Character(npc["Ella"]["name"], npc["Ella"]["role"], npc["Ella"]["description"], npc["Ella"]["status"], npc["Ella"]["infected"])
+Ella = Character(npc["Ella"]["name"], npc["Ella"]["role"],
+                 npc["Ella"]["description"], npc["Ella"]["status"],
+                 npc["Ella"]["infected"], None)
 print(Ella)
-Mick = Character(npc["Mick"]["name"], npc["Mick"]["role"], npc["Mick"]["description"], npc["Mick"]["status"], npc["Mick"]["infected"])
+Mick = Character(npc["Mick"]["name"], npc["Mick"]["role"],
+                 npc["Mick"]["description"], npc["Mick"]["status"],
+                 npc["Mick"]["infected"], None)
 print(Mick)
-Katie = Character(npc["Katie"]["name"], npc["Katie"]["role"], npc["Katie"]["description"], npc["Katie"]["status"], npc["Katie"]["infected"])
+Katie = Character(npc["Katie"]["name"], npc["Katie"]["role"],
+                  npc["Katie"]["description"], npc["Katie"]["status"],
+                  npc["Katie"]["infected"], None)
 print(Katie)
+# Creat storage
+storage1 = Storage(items)
 game()
