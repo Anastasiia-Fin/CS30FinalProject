@@ -73,15 +73,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - NPC database names (Anastasiia and Kiera)
-
-## [2.2] - 2024-12-__
-
-### Changed
-
 - Storyline under end function (Kiera)
 - Storyline under win function (Kiera)
 
-## [0.1.0] - 2015-10-06
+## [2.2] - 2024-12-18
+
+### Added
+
+- Dialogue and descriptions for each NPC under NPC database (Kiera)
+- Wrote item and room descriptions (Kiera)
+- Docstrings for every other function other than the day functions (Kiera and Anastasiia)
+
+### Changed
+
+- Made sure line character length does not exceed 80 characters as per PEP 8 rules (Kiera and Anastasiia)
+
+## [2.3] - 2024-12-__
 
 ### Added
 
