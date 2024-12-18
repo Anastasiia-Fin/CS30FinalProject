@@ -12,18 +12,22 @@
 # Imports and Global Variables-------------------------------------------------
 from tabulate import tabulate
 map_file = 'map.txt'
-npc = {"Dr.Tucker": {"name": "Dr. Tucker", "role": "doctor",
+npc = {"dr.tucker": {"name": "Dr.Tucker", "role": "doctor",
                       "description": "PLACE HOLDER", 
-                      "status": True, "infected": False},
-      "Ella": {"name": "Ella", "role": "mechanic",
+                      "status": True, "infected": False, 
+                     "dialogue": "PLACE HOLDER"},
+      "ella": {"name": "Ella", "role": "mechanic",
                 "description": "PLACE HOLDER", 
-               "status": True, "infected": False},
-      "Mick": {"name": "Mick", "role": "comedian",
+               "status": True, "infected": False, 
+               "dialogue": "PLACE HOLDER"},
+      "mick": {"name": "Mick", "role": "comedian",
                 "description": "PLACE HOLDER", 
-               "status": True, "infected": False},
-      "Katie": {"name": "Katie", "role": "FBI agent",
+               "status": True, "infected": False,
+               "dialogue": "PLACE HOLDER"},
+      "katie": {"name": "Katie", "role": "FBI agent",
                  "description": "PLACE HOLDER", 
-                "status": True, "infected": False}
+                "status": True, "infected": False, 
+                "dialogue": "PLACE HOLDER"}
       }
 
 rooms = {"storage": {"description": "PLACE HOLDER"},
@@ -31,7 +35,7 @@ rooms = {"storage": {"description": "PLACE HOLDER"},
         "utility": {"description": "PLACE HOLDER"},
         "medical room": {"description": "PLACE HOLDER"}}
 
-items = {"water": {"name": "water", "description": "PLACE HOLDER", "value": 20},
+items = {"water": {"name": "water", "description": "PLACE HOLDER", "value": 3},
          "food": {"name": "food", "description": "PLACE HOLDER", "value": 20},
          "medical supplies": {"name": "medical_supplies", "description": "PLACE HOLDER", "value": True},
          "weapons": {"gun": {"description": "PLACE HOLDER", "value": True},
@@ -74,11 +78,36 @@ class Storage:
 
 
 def win():
-    print("You win!")
+    print("The FBI has sucessfully rescued you, and your team." + 
+          "The furture is uncertain, but you know your safe for now." + 
+          "Thank you for playing our game!")
+    exit()
 
 
 def end():
-    print("You lose!")
+    if (player.inventory.item_list["water"]["value"] == 0) and (player.inventory.item_list["food"]["value"] == 0):
+        print("You tired your best to survive, but you ran out" + 
+              "of resources. You die from lack of nutrients.")
+        exit()
+    elif (player.inventory.item_list["water"]["value"] == 0):
+        print("You have no clean source of water left." + 
+              "You died from dehydration.")
+        exit()
+    elif (player.inventory.item_list["food"]["value"] == 0):
+        print("You have no more food left. You die from starvation.")
+        exit()
+    elif player.infected == True:
+            print("The virus has spread to you." + 
+                  "Your brain in slowly rotting away," + 
+                  "turning you into a zombie. You died from infection.")
+            exit()
+    else:
+            print("You stood there in fear of your mutated teamate." + 
+                  "She ate you alive with the rest of your team." + 
+                  "You died like a coward from cannibalization.")
+    
+        
+    
 
 
 def quit():
@@ -124,14 +153,25 @@ def explore():
 
 
 def chat():
-    print("You talked with your bunker mates")
-
+    """ This function is used to chat with the NPCs in the game. """
+    while True:
+        for person in npc:
+            print(f" - {npc[person]['name']}")
+        choice = input("Who do you want to chat with? ").lower()
+        if choice in npc:
+            print(f"{npc[choice]['dialogue']}")
+            break
+        else:
+            print("That was an invalid choice.")
+    
 
 def check_map():
+    """ This function prints the map from an external file. """
     print(tabulate(map, tablefmt = "fancy_grid"))
 
 
 def make_map():
+    """ This function creates the map in an external file. """
     with open(map_file, "w") as file:
         file.write(tabulate(map, tablefmt = "fancy_grid"))
 
@@ -236,11 +276,18 @@ menus = {"game options": {"explore": explore, "chat": chat,
 
 
 def day():
+    """ This function gives the daily options of exploring, chatting,
+    checking the map, going to the next day, or quitting the game to
+    the user.
+    """
     choice = True
     while choice:
+        # Give user options and ask for input
         for option in menus["game options"]:
             print(f"- {option.title()}")
         user_input = input("What would you like to do? ").lower()
+        # Check if user's input is an valid and if it is, call the
+        # corresponding function and break out of loop.
         if user_input.lower() in menus["game options"]:
             menus["game options"][user_input.lower()]()
             if user_input == "next day":
@@ -256,11 +303,19 @@ days = {"day1": day1, "day2": day2, "day3": day3, "day4": day4, "day5": day5,
 def game():
     day_count = 1
     while player.status and day_count<21:
+        # Print and call days
         print(f"It is day {day_count}.")
         days[f"day{str(day_count)}"]()
         day()
         day_count += 1
-    if player.status == False:
+        # Take away daily ration of food and water
+        player.inventory.item_list["water"]["value"] -= 1
+        player.inventory.item_list["food"]["value"] -= 1
+        # Check if player ran out of food or water
+        if (player.inventory.item_list["water"]["value"]==0 or
+            player.inventory.item_list["food"]["value"]==0):
+            player.status = False
+    if not player.status:
         end()
     else:
         win()
@@ -269,26 +324,24 @@ def game():
 # Main-------------------------------------------------------------------------
 make_map()
 # Create storage
-player_items = items
+player_items = Storage(items)
 # Create characters
 player = Character("Bob", "player", "description", True, False, player_items)
-DrTucker = Character(npc["Dr.Tucker"]["name"], npc["Dr.Tucker"]["role"],
-                     npc["Dr.Tucker"]["description"],
-                     npc["Dr.Tucker"]["status"], npc["Dr.Tucker"]["infected"],
+DrTucker = Character(npc["dr.tucker"]["name"], npc["dr.tucker"]["role"],
+                     npc["dr.tucker"]["description"],
+                     npc["dr.tucker"]["status"], npc["dr.tucker"]["infected"],
                      None)
 print(DrTucker)
-Ella = Character(npc["Ella"]["name"], npc["Ella"]["role"],
-                 npc["Ella"]["description"], npc["Ella"]["status"],
-                 npc["Ella"]["infected"], None)
+Ella = Character(npc["ella"]["name"], npc["ella"]["role"],
+                 npc["ella"]["description"], npc["ella"]["status"],
+                 npc["ella"]["infected"], None)
 print(Ella)
-Mick = Character(npc["Mick"]["name"], npc["Mick"]["role"],
-                 npc["Mick"]["description"], npc["Mick"]["status"],
-                 npc["Mick"]["infected"], None)
+Mick = Character(npc["mick"]["name"], npc["mick"]["role"],
+                 npc["mick"]["description"], npc["mick"]["status"],
+                 npc["mick"]["infected"], None)
 print(Mick)
-Katie = Character(npc["Katie"]["name"], npc["Katie"]["role"],
-                  npc["Katie"]["description"], npc["Katie"]["status"],
-                  npc["Katie"]["infected"], None)
+Katie = Character(npc["katie"]["name"], npc["katie"]["role"],
+                  npc["katie"]["description"], npc["katie"]["status"],
+                  npc["katie"]["infected"], None)
 print(Katie)
-# Creat storage
-storage1 = Storage(items)
 game()
