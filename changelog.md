@@ -88,11 +88,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Made sure line character length does not exceed 80 characters as per PEP 8 rules (Kiera and Anastasiia)
 
-## [2.3] - 2024-12-__
+## [3.1] - 2024-12-19
 
 ### Added
 
-- Answer "Should you ever rewrite a change log?".
+- Introduction story line under intro function
 
 ### Changed
 

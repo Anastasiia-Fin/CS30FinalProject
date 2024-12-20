@@ -3,35 +3,35 @@
 # Name: Anastasiia Finovska Kiera Fellinger
 # Class: CS30
 # Assignment: Final Project
-# Version: 2.2
+# Version: 2.3
 ###############################################################################
 """
     Character class and main functions, map and main logic, Storage
-    class, chat function basic, specific dialogue and character
-    descriptions.
+    class, chat function basic, specific dialogue, character
+    descriptions, introduction, days 1-5
 """
 ###############################################################################
 # Imports and Global Variables-------------------------------------------------
 from tabulate import tabulate
 map_file = 'map.txt'
 npc = {"dr.tucker": {"name": "Dr.Tucker", "role": "doctor",
-                     "description": "Dr. Tucker is a shy and quiet guy, but"
+                     "description": "Dr. Tucker is a shy and quiet doctor, but"
                      + " in your situation he may just come in handy.",
                       "status": True, "infected": False, 
                      "dialogue": "PLACE HOLDER"},
       "ella": {"name": "Ella", "role": "mechanic",
-               "description": "Ella is a layed-back person, who can keep " 
+               "description": "Ella is a layed-back mechanic who can keep " 
                + "calm in stressfull times. She's good to have on your team.",
                "status": True, "infected": False, 
                "dialogue": "PLACE HOLDER"},
       "mick": {"name": "Mick", "role": "comedian",
-                "description": "Mick is a silly dude, cracking jokes " 
+                "description": "Mick is a silly comedian, cracking jokes " 
                + "at any chance he gets. He may actually help "
                + "to keep your team sane.", 
                "status": True, "infected": False,
                "dialogue": "PLACE HOLDER"},
       "katie": {"name": "Katie", "role": "FBI agent",
-                "description": "Katie is a serious character. She stands "
+                "description": "Katie is a serious FBI agent. She stands "
                 + "on buisness and is prepared to survive.", 
                 "status": True, "infected": False, 
                 "dialogue": "PLACE HOLDER"}
@@ -51,7 +51,7 @@ rooms = {"storage": {"description": "You walk into the small storage "
 items = {"water": {"name": "water", 
                    "description": "You pick up a bottle of water. " 
                    + "Super refreshing.", 
-                   "value": 3},
+                   "value": 20},
          "food": {"name": "food", 
                   "description": "You grab a can of food off the shelf. " 
                   + "Looks unappetizing.", 
@@ -80,7 +80,16 @@ items = {"water": {"name": "water",
          "flashlight": {"name": "flashlight", 
                         "description": "You take your flashlight. The light " 
                         + "it emits is dim, and you have no extra batteries.",
-                        "value": True}}
+                        "value": True},
+         "books": {"name": "book", 
+                   "description": "A collection of how to survive the " 
+                   + "apocalypse and romance novels.",
+                   "value": True},
+         "cards": {"name": "cards", 
+                   "description": "Cards to play a game of blackjack, Go Fish "
+                   + ", or whatever you would like.",
+                   "value": True}
+        }
 
 map = [["Storage", "Washroom"],
        ["Main Room"],
@@ -258,9 +267,13 @@ def fight():
     print("You are fighting.")
 
 
+def run():
+    print("You are running.")
+
+
 def intro():
     """ This function prints game intro."""
-    print("You're in a bunker with some people.")
+    print(f"You're relaxing on your couch, watching TV on your day off. When all of a sudden, breaking news pops up. A global virus has spread rapidly all over the world and authorities are advising you to stay home to avoid breathing the outside air. The virus spreads through spores from infected individuals. Symptoms of this virus include fever, cough, and mental disorientation. \n\nYou look outside your window and see pure chaos on the streets. Your neighbour, Bob, has some sort of fungus growing all over his body and he is attacking someone. You realize how serious this situation is and decide that there is only one safe place for you: a bunker. \n\nYou stuff some water, food, and other supplies into your backpack. You cover your face with a cloth and head over to your neighbour's bunker. The bunker is owned by an old friend of yours, working for the FBI. Katie always believed in crazy things like the apocalypse and now it has come true. \n\nAs Katie welcomes you into her bunker, you see some of your other neighbours in there. {npc['katie']['description']} {npc['dr.tucker']['description']} {npc['ella']['description']} {npc['mick']['description']}\n")
 
 
 def next_day():
@@ -268,23 +281,38 @@ def next_day():
 
 
 def day1():
-    print(1)
+    print("It is the first day of the apocalypse. You sit isolated in the bunker with your team. Eveyone is a bit on edge. You decide to break the ice with your team and get to know your surroundings. \n\nYou wonder what is going on in Katie's head. She always fantazied about this situation. \n\nDr.Tucker is sitting alone in a corner, he isn't doing so good. \n\n Ella and Mick are having a conversation, they are very chatty. \n")
 
 
 def day2():
-    print(2)
+    print("You survived another day. Everyone is trying to adapt to this new life, but it's not easy. \n\nKatie has been acting a bit strange, but everything seems strange during the apocalypse. She tries to hide her cough and isolates herself. You wonder if the others have noticed. \n\nThe rest of the group seems to be slowly warming up to each other.")
 
 
 def day3():
-    print(3)
+    print("It is early in the morning when you wake up to the sound of commotion. Katie is screaming and her skin is partially covered in brown fungus, she suddenly turns her body towards you. \nShe charges at you and you have to prepare to attack. What will you do?\n\n")
+    # user input and then call fight or run using the menu
+    # If fight, fight(), print killed Katie but if chose fists you die
+    # Else if run, run()
+    print("\n\nYou need to store Katie's body somewhere so that you are not at risk for infection, but you do not want to risk opening the bunker door and choose to use the medical room. You and your team put on layers of clothes and carry Katie's body into the medical room.")
 
 
 def day4():
-    print(4)
+    print("It is quiet in the bunker after yesterday. Everyone witnessed Katie turn into a monster and her body still lays in the medical room. You peak into the window seeing the rotting fungus growing from her body. Spores edmit from her body.")
 
 
 def day5():
-    print(5)
+    print("You wake up to coughing late in the night. You look over to see Ella sitting straight up. Quietly you sneak to the storage room to have a conversation with her. \n\nElla is terrified but is more concerned for the sake of her teamates. She is sick, and doesn't know what to do. \n\nElla wants you to choose, if she will stay in the bunker or kick her out of the bunker.")
+    while True:
+        choice = input("What will you do with Ella? (keep/kick) ").lower()
+        if choice == "keep":
+            print("You decide to keep Ella, but moniter her closely in case she turns.")
+            break
+        elif choice == "kick":
+            print("You decide to kick Ella out of the bunker. You unseal the door and she quickly slips out into the outside world. You close the bunker immediately.")
+            Ella.status = False
+            break
+        else:
+            print("That was not a valid choice, try again.")
 
 
 def day6():
@@ -351,7 +379,8 @@ menus = {"game options": {"explore": explore, "chat": chat,
                         "check map": check_map, "next day": next_day, 
                         "quit": quit},
          "room menu": {"storage": storage, "washroom": washroom,
-                        "utility": utility, "medical room": medical_room}}
+                        "utility": utility, "medical room": medical_room},
+        "fight": {"fight": fight, "run": run}}
 
 
 def day():
@@ -389,10 +418,10 @@ def game():
     status is dead before day 20, the end function is called, otherwise
     the win function is called.
     """
-    day_count = 1
+    day_count = 4
     while player.status and day_count<21:
         # Print and call days
-        print(f"It is day {day_count}.")
+        print(f"It is day {day_count}.\n")
         days[f"day{str(day_count)}"]()
         day()
         day_count += 1
@@ -410,26 +439,24 @@ def game():
 
 
 # Main-------------------------------------------------------------------------
+intro()
 make_map()
 # Create storage
 player_items = Storage(items)
 # Create characters
+
 player = Character("Bob", "player", "description", True, False, player_items)
 DrTucker = Character(npc["dr.tucker"]["name"], npc["dr.tucker"]["role"],
                      npc["dr.tucker"]["description"],
                      npc["dr.tucker"]["status"], npc["dr.tucker"]["infected"],
                      None)
-print(DrTucker)
 Ella = Character(npc["ella"]["name"], npc["ella"]["role"],
                  npc["ella"]["description"], npc["ella"]["status"],
                  npc["ella"]["infected"], None)
-print(Ella)
 Mick = Character(npc["mick"]["name"], npc["mick"]["role"],
                  npc["mick"]["description"], npc["mick"]["status"],
                  npc["mick"]["infected"], None)
-print(Mick)
 Katie = Character(npc["katie"]["name"], npc["katie"]["role"],
                   npc["katie"]["description"], npc["katie"]["status"],
                   npc["katie"]["infected"], None)
-print(Katie)
 game()
