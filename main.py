@@ -3,12 +3,12 @@
 # Name: Anastasiia Finovska Kiera Fellinger
 # Class: CS30
 # Assignment: Final Project
-# Version: 2.3
+# Version: 3.2
 ###############################################################################
 """
     Character class and main functions, map and main logic, Storage
     class, chat function basic, specific dialogue, character
-    descriptions, introduction, days 1-5
+    descriptions, introduction, days 1-5, fight logic
 """
 ###############################################################################
 # Imports and Global Variables-------------------------------------------------
@@ -63,9 +63,6 @@ items = {"water": {"name": "water",
          "weapons": {"gun": {"description": "You hold the heavey cold gun " 
                              + "in your hand and aim.", 
                              "value": True},
-                     "ammunition": {"description": "You have a small box " 
-                                    + "of limited ammunition. Use it wisely.",
-                                    "value": True},
                      "axe": {"description": "You pick up the axe. Holding " 
                              + "onto the wooden handled tight, as you get " 
                              + "ready to attack.", 
@@ -73,6 +70,9 @@ items = {"water": {"name": "water",
                      "hands": {"description": "You ball your hands up into "
                                + "fists, ready to fight.", 
                                "value": True}},
+         "ammunition": {"description": "You have a small box " 
+             + "of limited ammunition. Use it wisely.",
+             "value": True},
          "radio": {"name": "radio", 
                    "description": "You pick up the radio. It has a bunch of "
                    + "buttons, but you're not sure how to work it.", 
@@ -171,8 +171,8 @@ def end():
                   "turning you into a zombie. You died from infection.")
             exit()
     else:
-            print("You stood there in fear of your mutated teamate." + 
-                  "She ate you alive with the rest of your team." + 
+            print("You stood there in fear of your mutated teamate. " + 
+                  "She ate you alive with the rest of your team. " + 
                   "You died like a coward from cannibalization.")
     
         
@@ -263,12 +263,39 @@ def make_map():
         file.write(tabulate(map, tablefmt = "fancy_grid"))
 
 
+def gun():
+    print("You quickly pull out the gun, aiming it at your enemy, shooting point blank. You've killed your enemy, but now have no ammunition.")
+    del (player.inventory.item_list["ammunition"])
+    del (player.inventory.item_list["weapons"]["gun"])
+
+
+def axe():
+    print("You quickly grab the axe, swinging it at your enemy. It was a direct hit and they fall to the ground. Your axe shatters after the attack, making it unusable.")
+    del (player.inventory.item_list["weapons"]["axe"])
+
+
+def hands():
+    print("You ball your hands up into fists, ready to take on your enemy. You were unsucessful, as your hands were not the best choice of weapon.")
+    player.status = False
+
+
 def fight():
-    print("You are fighting.")
+    print("Act fast and choose your weapon.")
+    while True:
+        for option in menus["weapons"]:
+            print(f" - {option.title()}")
+        choice = input("What will you pick? ").lower()
+        if choice in menus["weapons"]:
+            menus["weapons"][choice]()
+            break
+        else:
+            print("That not a valid choice, choose again quickly!")
 
 
 def run():
-    print("You are running.")
+    print("You try to run, but you fail.")
+    player.status = False
+    
 
 
 def intro():
@@ -290,10 +317,18 @@ def day2():
 
 def day3():
     print("It is early in the morning when you wake up to the sound of commotion. Katie is screaming and her skin is partially covered in brown fungus, she suddenly turns her body towards you. \nShe charges at you and you have to prepare to attack. What will you do?\n\n")
-    # user input and then call fight or run using the menu
-    # If fight, fight(), print killed Katie but if chose fists you die
-    # Else if run, run()
-    print("\n\nYou need to store Katie's body somewhere so that you are not at risk for infection, but you do not want to risk opening the bunker door and choose to use the medical room. You and your team put on layers of clothes and carry Katie's body into the medical room.")
+    while True:
+        choice = input("What will you do? (fight/run) ").lower()
+        if choice == "fight":
+            fight()
+            break
+        elif choice == "run":
+            run()
+            break
+        else:
+            print("That was not a valid option, pick again quick!")
+    if player.status:
+        print("\n\nYou need to store Katie's body somewhere so that you are not at risk for infection, but you do not want to risk opening the bunker door and choose to use the medical room. You and your team put on layers of clothes and carry Katie's body into the medical room.")
 
 
 def day4():
@@ -380,7 +415,8 @@ menus = {"game options": {"explore": explore, "chat": chat,
                         "quit": quit},
          "room menu": {"storage": storage, "washroom": washroom,
                         "utility": utility, "medical room": medical_room},
-        "fight": {"fight": fight, "run": run}}
+        "fight": {"fight": fight, "run": run},
+        "weapons" : {"gun": gun, "axe": axe, "hands": hands}}
 
 
 def day():
@@ -418,20 +454,21 @@ def game():
     status is dead before day 20, the end function is called, otherwise
     the win function is called.
     """
-    day_count = 4
+    day_count = 3
     while player.status and day_count<21:
         # Print and call days
         print(f"It is day {day_count}.\n")
         days[f"day{str(day_count)}"]()
-        day()
-        day_count += 1
-        # Take away daily ration of food and water
-        player.inventory.item_list["water"]["value"] -= 1
-        player.inventory.item_list["food"]["value"] -= 1
-        # Check if player ran out of food or water
-        if (player.inventory.item_list["water"]["value"]==0 or
-            player.inventory.item_list["food"]["value"]==0):
-            player.status = False
+        if player.status:
+            day()
+            day_count += 1
+            # Take away daily ration of food and water
+            player.inventory.item_list["water"]["value"] -= 1
+            player.inventory.item_list["food"]["value"] -= 1
+            # Check if player ran out of food or water
+            if (player.inventory.item_list["water"]["value"]==0 or
+                player.inventory.item_list["food"]["value"]==0):
+                player.status = False
     if not player.status:
         end()
     else:

@@ -88,24 +88,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Made sure line character length does not exceed 80 characters as per PEP 8 rules (Kiera and Anastasiia)
 
-## [3.1] - 2024-12-19
+## [3.1] - 2024-12-20
 
 ### Added
 
-- Introduction story line under intro function
+- Introduction story line under intro function (Anastasiia and Kiera)
+- Days 1-5 functions (Anastasiia and Kiera)
+- Day description for each day (Anastasiia and Kiera)
+- Choice to keep or kick Ella on day 5 (Anastasiia)
+- Change Ella's status attribute if kicked out (Anastasiia)
+
+## [3.2] - 2024-12-20
+
+### Added
+
+- Fight menu in menus (Anastasiia)
+- Weapons menu in menus (Anastasiia)
+- Fight menu logic and let user pick (Anastasiia)
+- Fight function logic and let user pick (Anastasiia)
+- Hands function (Kiera)
+- Gun function (Kiera)
+- Axe function (Kiera)
+- Run function (Kiera)
+- Deleting weapon from dictionary once used (Kiera)
 
 ### Changed
 
-- Improve argument against commit logs.
-- Start following [SemVer](https://semver.org) properly.
-
-## [0.0.8] - 2015-02-17
-
-### Changed
-
-- Update year to match in every README example.
-- Reluctantly stop making fun of Brits only, since most of the world
-  writes dates in a strange way.
+- Check if player is dead after the day function is run in the game function main logic so that in case the player is dead, the day does not continue on (Anastasiia)
 
 ### Fixed
 
