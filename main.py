@@ -3,7 +3,7 @@
 # Name: Anastasiia Finovska Kiera Fellinger
 # Class: CS30
 # Assignment: Final Project
-# Version: 3.2
+# Version: 3.5
 ###############################################################################
 """
     Character class and main functions, map and main logic, Storage
@@ -159,7 +159,7 @@ def end():
     """
     if ((player.inventory.item_list["water"]["value"]==0)
         and (player.inventory.item_list["food"]["value"]==0)):
-        print("You tired your best to survive, but you ran out" + 
+        print("You tried your best to survive, but you ran out " + 
               "of resources. You die from lack of nutrients.")
         exit()
     elif (player.inventory.item_list["water"]["value"] == 0):
@@ -282,18 +282,27 @@ def make_map():
 
 def gun():
     print("\nYou quickly pull out the gun, aiming it at your enemy, shooting point blank. You've killed your enemy, but now have no ammunition.")
-    del (player.inventory.item_list["ammunition"])
-    del (player.inventory.item_list["weapons"]["gun"])
+    del player.inventory.item_list["ammunition"]
+    del player.inventory.item_list["weapons"]["gun"]
+    del menus["weapons"]["gun"]
 
 
 def axe():
     print("\nYou quickly grab the axe, swinging it at your enemy. It was a direct hit and they fall to the ground. Your axe shatters after the attack, making it unusable.")
-    del (player.inventory.item_list["weapons"]["axe"])
+    del player.inventory.item_list["weapons"]["axe"]
+    del menus["weapons"]["axe"]
 
 
 def hands():
-    print("\nYou ball your hands up into fists, ready to take on your enemy. You were unsucessful, as your hands were not the best choice of weapon.")
-    player.status = False
+    if Katie.status:
+        print("\nYou ball your hands up into fists, ready to take on your enemy. You were unsucessful, as your hands were not the best choice of weapon.")
+        player.status = False
+    else:
+        print("\nYou ball your hands up into fists, ready to take on your enemy. You fall on your face trying to catch the rats, but they manage to get away and eat more of your food. You scratched up your hands and cannot continue to fight with them.")
+        player.inventory.item_list["food"]["value"] -= 1
+        del player.inventory.item_list["weapons"]["hands"]
+        del menus["weapons"]["hands"]
+        fight()
 
 
 def fight():
@@ -346,6 +355,7 @@ def day3():
             print("That was not a valid option, pick again quick!")
     if player.status:
         print("\n\nYou need to store Katie's body somewhere so that you are not at risk for infection, but you do not want to risk opening the bunker door and choose to use the medical room. You and your team put on layers of clothes and carry Katie's body into the medical room.")
+    Katie.status = False
 
 
 def day4():
@@ -447,7 +457,7 @@ def day12():
                 player.infected = True
                 break
             elif choice == "kill":
-                print(f"While it was a tough choice, your team agrees you must kill {character.name}, but you do it with dignity. You decide to stow {character.name}'s body in a compartment of the main room and hope that someone will rescue you soon.\n")
+                print(f"While it was a tough choice, your team agrees you must kill {character.name}, but you do it with dignity. You decide to stow {character.name}'s body in a compartment of the main room and hope that someone will rescue you soon.\n") # Problem with compartment
                 character.status = False
                 break
             else:
@@ -478,31 +488,76 @@ def day14():
 
 
 def day15():
-    print("Mick was looking at the map while having some canned soup and accidently spilled it. Now you can't see anything on it, but it doesn't really matter anyway. The atmosphere got a bit more tense.")
+    print("Mick was looking at the map while having some canned soup and accidently spilled it. Now you can't see anything on it, but it doesn't really matter anyway. The atmosphere got a bit more tense. You also find some small holes around your bunker, they almost look like they could be rat holes.")
     with open(map_file, "w") as file:
         file.write(tabulate(ruined_map, tablefmt = "fancy_grid"))
     check_map()
-    
 
 
 def day16():
-    print(16)
+    print("You wake up to a odd squeaking sound. You get up and check the storage room to find rats! It is an infestation. They have been slowly eating your food, and now you must save your resources. \n\n")
+    fight()
 
 
 def day17():
-    print(17)
+    print("You left the rats in a corner of the room and the thoughts of your diminishing supplies and growing hunger has made you consider eating the rats. Your teammates are unsure, but they also need to eat.\n\n")
+    while True:
+        choice = input("Will you eat the rodents? (y/n) ").lower()
+        if choice == "y":
+            print("You decide to eat the rodents. You and your team try to cook the rats and dig in. You feel good about saving some of your food, but after a while your stomach starts to ache. What an interesting choice...\n")
+            player.inventory.item_list["food"]["value"] += 1
+            break
+        elif choice == "n":
+            print("You decide to spare them. Who knows where they have been? You are crazy to even consider eating them.\n")
+            break
+        else:
+            print("That was not a valid option, please try again.")
 
 
 def day18():
-    print(18)
-
+    if Ella.status:
+        print("You have a conversation with Ella. She opens up to you abouit her injury. She has been through a lot, but is glad that you're leading the team to survival. She goes on to talk about some nerdy electrition stuff. You are amazed by her knowledge, but very lost on what she is saying.\n")
+    if DrTucker.status:
+        print("You check up on Dr.Tucker. Times have been tough for him, but he feels he has grown as a person and opened up significantly. He's glad he has been able to help you and your teammates with injuries and such. He's also happy he has been able to sharpen his card-playing skills and teaches you Blackjack.\n")
+    if Mick.status:
+        print("Mick comes up to you and asks 'What do you call a flesh-eating bee?'")
+        user_dialogue = input("What do you say back? ").lower()
+        if user_dialogue == "zombee":
+            print("Mick is impressed you got it right, good job!")
+        else:
+            print("'It's a zomBEE!' Mick says.'")
+        print("You talk with Mick a more and he apologizes for the time he went a little bit crazy and ate the food. He says he is pretty scared and is struggling with staying in this bunker for so long. Mick opened up, and you learn hes not so bad.\n")
 
 def day19():
-    print(19)
+    print("You wake up with a stomach ache. You are starving. With decreasing rations, the rats, and Mick's psychotic break, you are going insane. You can't stand to just keep going with no sign of an end to this madness. Your instincts are to survive. You must feed your hunger somehow, or you could die trying. \n\nYou never thought you could come to this conclusion, but maybe eating your teamates couldn't be so bad. One person could hold the rest of the team off for a long time. \n\nYou must make a choice.")
+    characters = check_chars()
+    while True:
+        choice = input("Will you kill a teamate to save yourself? (y/n) ").lower()
+        if choice == "y":
+            print(f"You see {characters[0].name} sleeping. They are helpless there and you can strike at any momnet. Your team shall be truely grateful your act of providing. You lunge at them yelling, and in a flash you are tackled and knocked out. \n\nYou wake up to your team dissapointed. Trying to explain to them, they only lose respect for you. Why did you even consider this???")
+            break
+        elif choice == "n":
+            print("You need to get in your right mind! cannabalism is crazy, theres still some portion of food, and it would just be selfish to act on a crazy impulse. You just decide you need to eat your ration of the day sooner than later.")
+            break
+        else:
+            print("That is not a choice try again!")
 
 
 def day20():
-    print(20)
+    print("You wake up to a loud bang. It's coming frmom the bunker door and you and your teammates look around in panic at each other. Who could be knocking on your bunker? Who even knows about it? It could be scavengers, someone who could help you, or maybe the infected have gotten smarter. There is almost no food or water in your bunker, but do you really want to risk everything?\n\n")
+    while True:
+        choice = input("Do you open the door? (y/n) ").lower()
+        if choice == "n":
+            print("You chose to not open the door. Who knows what could be out there? Maybe you and your teammates will find another way to survive. You continue living your days out in the bunker. You're unsure if you would ever make it out of here one day. You tried to lead your team to survival, but you have failed. After a few days, resources got scarce. You had nothing left. At that point your teammates couldn't take the starvation, and ventured out of the bunker. You died alone in the bunker, too scared to face the outside world.")
+            player.status = False
+            player.inventory.item_list["water"]["value"] = 0
+            player.inventory.item_list["food"]["value"] = 0
+            break
+        elif choice == "y":
+            print("You chose to open the door. You and your teammates work up the courage and unseal the door. Anything could be waiting on the other side. You open the door to an FBI agent. She introduces herself as Amirah, a close co-worker of Katie's. She has brought a hellicopter and is here to save you. You all jump into saftey and fly off to a government compound. You are grateful for Katie's sacrafice and your teammates. You don't know what is next, but you glad you escaped the bunker. \n")
+            break
+        else:
+            print("That was not a valid option, please try again.")
 
 
 menus = {"game options": {"explore": explore, "chat": chat,
@@ -550,7 +605,7 @@ def game():
     the win function is called.
     """
     day_count = 1
-    while player.status and (not player.infected) and day_count<21:
+    while player.status and (not player.infected) and day_count<20:
         # Print and call days
         print(f"-----------------------\nIt is day {day_count}.\n-----------------------\n")
         days[f"day{str(day_count)}"]()
@@ -564,6 +619,8 @@ def game():
             if (player.inventory.item_list["water"]["value"]==0 or
                 player.inventory.item_list["food"]["value"]==0):
                 player.status = False
+    if day_count == 20 and player.status:
+        days[f"day{str(day_count)}"]()
     if not player.status or player.infected:
         end()
     else:
