@@ -121,19 +121,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix typos in recent README changes.
 - Update outdated unreleased diff link.
 
-## [0.0.7] - 2015-02-16
+## [3.3] - 2024-12-22
 
 ### Added
 
-- Link, and make it obvious that date format is ISO 8601.
-
-### Changed
-
-- Clarified the section on "Is there a standard change log format?".
+- Wrote days 6-10 (Kiera)
+- Created the challenge player faces on day 6. (Kiera and Anastasiia)
 
 ### Fixed
 
-- Fix Markdown links to tag comparison URL with footnote-style links.
+- Spelling and grammar mistakes
 
 ## [0.0.6] - 2014-12-12
 

@@ -174,9 +174,6 @@ def end():
             print("You stood there in fear of your mutated teamate. " + 
                   "She ate you alive with the rest of your team. " + 
                   "You died like a coward from cannibalization.")
-    
-        
-    
 
 
 def quit():
@@ -336,7 +333,7 @@ def day4():
 
 
 def day5():
-    print("You wake up to coughing late in the night. You look over to see Ella sitting straight up. Quietly you sneak to the storage room to have a conversation with her. \n\nElla is terrified but is more concerned for the sake of her teamates. She is sick, and doesn't know what to do. \n\nElla wants you to choose, if she will stay in the bunker or kick her out of the bunker.")
+    print("You wake up to coughing late in the night. You look over to see Ella sitting straight up. Quietly you sneak to the storage room to have a conversation with her. \n\nElla is terrified that she has the infection but is more concerned for the sake of her teamates. She is sick, and doesn't know what to do. \n\nElla wants you to choose, if she will stay in the bunker or kick her out of the bunker.")
     while True:
         choice = input("What will you do with Ella? (keep/kick) ").lower()
         if choice == "keep":
@@ -351,31 +348,44 @@ def day5():
 
 
 def day6():
-    print(6)
-
+    print("You are feeling nervous about yesterday. You had to make the decision on what to do about Ella. It is what she wanted, but it still left you on edge. \n\nAll of a sudden, a loud alarm system went off in the utility room. You run in to see a hole in the air filtration system. You have no idea how to fix it but if it's not fixed soon your whole team will turn into crazed fungus zombies. \n")
+    while True:
+        if Ella.status == False:
+            print("You made the decision for Ella to leave the bunker, and now you are paying the consequense. No one knows how to fix the filter and you all have enhaled the spores by now.")
+            player.infected = True
+            player.status = False
+            break
+        if Ella.status == True:
+            print("You thankfully made the decision to keep Ella in the bunker. She runs straight into the room and repairs the filter right away. She saved your and your teammates' lives. Without her you would have become zombies. You knew you couldn't turn your back on your fellow teammates. ")
+            break
+        else:
+            print("That was not a valid choice, try again.")
+    
 
 def day7():
-    print(7)
+    print("Your team has had an eventful couple of days for being stuck in a bunker. Everyone is trying to relax and calm theri nerves. \n\nElla's sickness ended up being the flu! She is feeling a lot better now. \n\nMick is cracking some bad jokes to lighten the mood. \n\nDr.Tucker has warmed up more to the team.")
 
 
 def day8():
-    print(8)
+    print("Today Ella was playing around with the radio when it picked up a signal. You hear national breaking news. The world is being destroyed by the infection. It is a worldwide apocalypse, but some governments around the world are trying to save the non-infected. \n\nThis scares your team, pushing them into an argument on what to do next. Resources are looking low and there is very little chance you will be found in this underground bunker. Hope will save no one. Mick is getting into a commotion and ends up tripping and taking the radio down with him. Irreplaceable parts shatter into pieces. Your one connection to the outside world is unfixable. Eveyone goes silent. \n\nMick sits alone in the corner quiet. \n\nDr.Tucker can't help but cry silently. \n\nElla tells you she will try her best to fix the radio. She still has hope in the team.")
 
 
 def day9():
-    print(9)
-
+    print("Everyone went to sleep tense last night. You wake up to find Mick locked in the supplies room. Your team isn't too sure why, but resources are sparse and you have to get Mick out of there to make sure your supplies are safe. \n\nWith full force, all three of you slam yourselves into the door. It busts open, almost crushing Mick. He is screaming at you. Nothing he says is making sense. You see the cans of empty food lying around. \n\nOut of anger you charge at Mick, attacking him. You both throw some solid punches until Mick is knocked out. Soon after, you pass out too. \n\nYou wake up to Dr.Tucker fixing you up. Mick is lying in his sleeping bag across the room.\n\nMick ate [INSERT NUMBER] of food supplies. You are even lower now. \n\nDr.Tuckers used all the medical supplies available to fix both of you up. \n\nWith time, Mick has gone crazy. It's to be expected when you've been stuck in a bunker for so long, but you have to keep an eye on him. \n\nDr.Tucker and Ella have been acting normal, but even so, can you trust them at this point?")
+    
+# Story line Note: Does this need to be edited more or changed? Should we add a fight funtion #2 where you have to fight mick? (it adds more player interation)
 
 def day10():
-    print(10)
+    print("Today everyone felt more clam with eachother, and the tension has lowered. Ella had been trying some workout to keep herself motivated when she twisted her ankle. She was unable to move it, and was in extreme pain. After the fight you had no more medical equpment. \n\nUntil Dr. Tucker mentioned that he wasn't able to get all the medical supplies out before Katie was locked in the room. Going into the room has a chance of the infection being spread. \n\nElla says she will try her best to go without the medical help.") # May need to change this to something more serious.
 
 
 def day11():
-    print(11)
+    print("Ella has a fever and her ankle has swelled up significantly. Dr. Tucker is trying to help her, but he is unable to do much without proper medical supplies. He fears that her bone was broken and infection has started to set in. It's up to you to decide who should retrieve the medical supplies or do nothing. Dr. Tucker is terrified of going in, but he knows what to look for best. Mick is also scared and says he is mentally not recovered enough to go in. Ella is the one injured afterall, so maybe she should get it herself. Who will you choose?")
+#Ella's ankle is swelling up and she is in unbearble pain. You have to pick between the teamates to get it. Mick is too scared and refuses to help. dr.Tucker is terrified but he knows where everything is in the room is and how up use the medcine. Ella needs it so why cant she get it herself? what will the player choose.
 
 
 def day12():
-    print(12)
+    print(f"but unfortunately the DIY hazmat suit made for {choice.title()} proved ineffective.")
 
 
 def day13():
@@ -454,7 +464,7 @@ def game():
     status is dead before day 20, the end function is called, otherwise
     the win function is called.
     """
-    day_count = 3
+    day_count = 10
     while player.status and day_count<21:
         # Print and call days
         print(f"It is day {day_count}.\n")
