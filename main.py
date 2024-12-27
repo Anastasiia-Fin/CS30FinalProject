@@ -51,11 +51,11 @@ rooms = {"storage": {"description": "You walk into the small storage "
 items = {"water": {"name": "water", 
                    "description": "You pick up a bottle of water. " 
                    + "Super refreshing.", 
-                   "value": 20},
+                   "value": 23},
          "food": {"name": "food", 
                   "description": "You grab a can of food off the shelf. " 
                   + "Looks unappetizing.", 
-                  "value": 20},
+                  "value": 25},
          "medical supplies": {"name": "medical supplies", 
                               "description": "You grab a med kit filled " 
                               + "with bandages, pills, and needles.", 
@@ -94,6 +94,10 @@ items = {"water": {"name": "water",
 map = [["Storage", "Washroom"],
        ["Main Room"],
        ["Utility", "Medical Room"]]
+
+ruined_map = [["----------", "----------"],
+       ["----------"],
+       ["----------", "----------"]]
 
 # Functions--------------------------------------------------------------------
 class Character:
@@ -176,6 +180,20 @@ def end():
                   "You died like a coward from cannibalization.")
 
 
+
+def check_chars():
+    current_list = []
+    if DrTucker.status:
+        current_list.append(DrTucker)
+    if Ella.status:
+        current_list.append(Ella)
+    if Mick.status:
+        current_list.append(Mick)
+    if Katie.status:
+        current_list.append(Katie)
+    return current_list
+
+
 def quit():
     """ This function quits the game."""
     print("You chose to quit the game. Thanks for playing!")
@@ -202,7 +220,7 @@ def utility():
     """
     print(f"Utility: {rooms['utility']['description']}")
 
-    
+
 def medical_room():
     """ This function calls the medical room description in the rooms
     dictionary.
@@ -247,11 +265,13 @@ def chat():
             break
         else:
             print("That was an invalid choice.")
-    
+
 
 def check_map():
     """ This function prints the map from an external file. """
-    print(tabulate(map, tablefmt = "fancy_grid"))
+    with open(map_file) as file:
+        print(file.read())
+    #print(tabulate(map, tablefmt = "fancy_grid"))
 
 
 def make_map():
@@ -261,18 +281,18 @@ def make_map():
 
 
 def gun():
-    print("You quickly pull out the gun, aiming it at your enemy, shooting point blank. You've killed your enemy, but now have no ammunition.")
+    print("\nYou quickly pull out the gun, aiming it at your enemy, shooting point blank. You've killed your enemy, but now have no ammunition.")
     del (player.inventory.item_list["ammunition"])
     del (player.inventory.item_list["weapons"]["gun"])
 
 
 def axe():
-    print("You quickly grab the axe, swinging it at your enemy. It was a direct hit and they fall to the ground. Your axe shatters after the attack, making it unusable.")
+    print("\nYou quickly grab the axe, swinging it at your enemy. It was a direct hit and they fall to the ground. Your axe shatters after the attack, making it unusable.")
     del (player.inventory.item_list["weapons"]["axe"])
 
 
 def hands():
-    print("You ball your hands up into fists, ready to take on your enemy. You were unsucessful, as your hands were not the best choice of weapon.")
+    print("\nYou ball your hands up into fists, ready to take on your enemy. You were unsucessful, as your hands were not the best choice of weapon.")
     player.status = False
 
 
@@ -292,7 +312,7 @@ def fight():
 def run():
     print("You try to run, but you fail.")
     player.status = False
-    
+
 
 
 def intro():
@@ -301,7 +321,7 @@ def intro():
 
 
 def next_day():
-    print("Time for bed!")
+    print("Time for bed!\n")
 
 
 def day1():
@@ -329,7 +349,7 @@ def day3():
 
 
 def day4():
-    print("It is quiet in the bunker after yesterday. Everyone witnessed Katie turn into a monster and her body still lays in the medical room. You peak into the window seeing the rotting fungus growing from her body. Spores edmit from her body.")
+    print("It is quiet in the bunker after yesterday. Everyone witnessed Katie turn into a monster and her body still lays in the medical room. You peak into the window, seeing the rotting fungus growing from her body and spores emitting from her body.")
 
 
 def day5():
@@ -350,17 +370,17 @@ def day5():
 def day6():
     print("You are feeling nervous about yesterday. You had to make the decision on what to do about Ella. It is what she wanted, but it still left you on edge. \n\nAll of a sudden, a loud alarm system went off in the utility room. You run in to see a hole in the air filtration system. You have no idea how to fix it but if it's not fixed soon your whole team will turn into crazed fungus zombies. \n")
     while True:
-        if Ella.status == False:
+        if not Ella.status:
             print("You made the decision for Ella to leave the bunker, and now you are paying the consequense. No one knows how to fix the filter and you all have enhaled the spores by now.")
             player.infected = True
             player.status = False
             break
-        if Ella.status == True:
+        if Ella.status:
             print("You thankfully made the decision to keep Ella in the bunker. She runs straight into the room and repairs the filter right away. She saved your and your teammates' lives. Without her you would have become zombies. You knew you couldn't turn your back on your fellow teammates. ")
             break
         else:
             print("That was not a valid choice, try again.")
-    
+
 
 def day7():
     print("Your team has had an eventful couple of days for being stuck in a bunker. Everyone is trying to relax and calm theri nerves. \n\nElla's sickness ended up being the flu! She is feeling a lot better now. \n\nMick is cracking some bad jokes to lighten the mood. \n\nDr.Tucker has warmed up more to the team.")
@@ -368,36 +388,101 @@ def day7():
 
 def day8():
     print("Today Ella was playing around with the radio when it picked up a signal. You hear national breaking news. The world is being destroyed by the infection. It is a worldwide apocalypse, but some governments around the world are trying to save the non-infected. \n\nThis scares your team, pushing them into an argument on what to do next. Resources are looking low and there is very little chance you will be found in this underground bunker. Hope will save no one. Mick is getting into a commotion and ends up tripping and taking the radio down with him. Irreplaceable parts shatter into pieces. Your one connection to the outside world is unfixable. Eveyone goes silent. \n\nMick sits alone in the corner quiet. \n\nDr.Tucker can't help but cry silently. \n\nElla tells you she will try her best to fix the radio. She still has hope in the team.")
+    del (player.inventory.item_list["radio"])
 
 
 def day9():
-    print("Everyone went to sleep tense last night. You wake up to find Mick locked in the supplies room. Your team isn't too sure why, but resources are sparse and you have to get Mick out of there to make sure your supplies are safe. \n\nWith full force, all three of you slam yourselves into the door. It busts open, almost crushing Mick. He is screaming at you. Nothing he says is making sense. You see the cans of empty food lying around. \n\nOut of anger you charge at Mick, attacking him. You both throw some solid punches until Mick is knocked out. Soon after, you pass out too. \n\nYou wake up to Dr.Tucker fixing you up. Mick is lying in his sleeping bag across the room.\n\nMick ate [INSERT NUMBER] of food supplies. You are even lower now. \n\nDr.Tuckers used all the medical supplies available to fix both of you up. \n\nWith time, Mick has gone crazy. It's to be expected when you've been stuck in a bunker for so long, but you have to keep an eye on him. \n\nDr.Tucker and Ella have been acting normal, but even so, can you trust them at this point?")
-    
+    print("Everyone went to sleep tense last night. You wake up to find Mick locked in the supplies room. Your team isn't too sure why, but resources are sparse and you have to get Mick out of there to make sure your supplies are safe. \n\nWith full force, all three of you slam yourselves into the door. It busts open, almost crushing Mick. He is screaming at you. Nothing he says is making sense. You see the cans of empty food lying around. \n\nOut of anger you charge at Mick, attacking him. You both throw some solid punches until Mick is knocked out. Soon after, you pass out too. \n\nYou wake up to Dr.Tucker fixing you up. Mick is lying in his sleeping bag across the room.\n\nMick ate a decent amount of food supplies. You are even lower now. \n\nDr.Tuckers used all the medical supplies available to fix both of you up. \n\nWith time, Mick has gone crazy. It's to be expected when you've been stuck in a bunker for so long, but you have to keep an eye on him. \n\nDr.Tucker and Ella have been acting normal, but even so, can you trust them at this point?")
+    player.inventory.item_list["food"]["value"] -= 2
 # Story line Note: Does this need to be edited more or changed? Should we add a fight funtion #2 where you have to fight mick? (it adds more player interation)
 
 def day10():
-    print("Today everyone felt more clam with eachother, and the tension has lowered. Ella had been trying some workout to keep herself motivated when she twisted her ankle. She was unable to move it, and was in extreme pain. After the fight you had no more medical equpment. \n\nUntil Dr. Tucker mentioned that he wasn't able to get all the medical supplies out before Katie was locked in the room. Going into the room has a chance of the infection being spread. \n\nElla says she will try her best to go without the medical help.") # May need to change this to something more serious.
+    print("Today everyone felt more clam with eachother, and the tension has lowered. Ella had been trying some workout to keep herself motivated when she twisted her ankle. She was unable to move it, and was in extreme pain. After the fight you had no more medical equpment. \n\nUntil Dr. Tucker mentioned that he wasn't able to get all the medical supplies out before Katie was locked in the room. Going into the room has a chance of the infection being spread. \n\nElla says she will try her best to go without the medical help.") # Problem with this is that Ella may not be in the bunker at that point (Day 5)
 
 
 def day11():
     print("Ella has a fever and her ankle has swelled up significantly. Dr. Tucker is trying to help her, but he is unable to do much without proper medical supplies. He fears that her bone was broken and infection has started to set in. It's up to you to decide who should retrieve the medical supplies or do nothing. Dr. Tucker is terrified of going in, but he knows what to look for best. Mick is also scared and says he is mentally not recovered enough to go in. Ella is the one injured afterall, so maybe she should get it herself. Who will you choose?")
-#Ella's ankle is swelling up and she is in unbearble pain. You have to pick between the teamates to get it. Mick is too scared and refuses to help. dr.Tucker is terrified but he knows where everything is in the room is and how up use the medcine. Ella needs it so why cant she get it herself? what will the player choose.
+    choices = check_chars()
+    while True:
+        for option in choices:
+            print(f" - {option.name}")
+        print(" - No One")
+        choice = input("Who will you choose? ").title()
+        if choice == "No One":
+            print("You decide to do nothing about Ella's injury and hope for the best. Hopefully things will look better in the morning.\n")
+            Ella.status = False
+            break
+        chosen_person = False
+        for person in choices:
+            if person.name == choice:
+                chosen_person = True
+                break
+        if chosen_person:
+            for person in choices:
+                if person.name == choice:
+                    person.infected = True
+                    print(f"You decide to go with {choice.title()}. {choice.title()} suited up with the clothes and materials available and got the supplies. Dr. Tucker was able to help Ella and she has started showing signs of improvement.\n")
+                    break
+            break
+        else:
+            print("That was an invalid option, please try again.")
 
 
 def day12():
-    print(f"but unfortunately the DIY hazmat suit made for {choice.title()} proved ineffective.")
+    if not Ella.status:
+        print("Unfortuantely, Ella has suddenly passed away due to her injury. The team is in shock at how quick the infection spread and spirits are low. You decide to stow her body in a compartment of the main room and hope that someone will rescue you.")
+    else:
+        if Mick.infected:
+            character = Mick
+        elif DrTucker.infected:
+            character = DrTucker
+        elif Ella.infected:
+            character = Ella
+        character.status = False
+        print(f"Ella seemed much better last night, but unfortunately the DIY hazmat suit made for {character.name} proved ineffective. {character.name} has started to act strange and by now you recognize the symptoms of the infection. You can either kill {character.name} or see if it's a false alarm.\n")
+        while True:
+            choice = input("What will you do? (nothing/kill) ").lower()
+            if choice == "nothing":
+                print("You decide to do nothing and hope for the best. Unfortunately, the infection was not a false alarm...\n")
+                player.infected = True
+                break
+            elif choice == "kill":
+                print(f"While it was a tough choice, your team agrees you must kill {character.name}, but you do it with dignity. You decide to stow {character.name}'s body in a compartment of the main room and hope that someone will rescue you soon.\n")
+                character.status = False
+                break
+            else:
+                print("That was an invalid option, please try again.")
 
 
 def day13():
-    print(13)
+    print("You and your team are still processing the past few days. You notice that your food and water are starting to get low.")
+    # Give user the choice to cut rations. If they don't, more food
+    # will be taken away and will affect the outcome of the game.
+    while True:
+        choice = input("Do you want to cut rations? (y/n) ").lower()
+        if choice == "n":
+            print("You decide to not cut rations.")
+            player.inventory.item_list["food"]["value"] -= 3
+            player.inventory.item_list["water"]["value"] -= 3
+            break
+        elif choice == "y":
+            print("You decide to cut rations and make sure you can stay alive for as long as possible, even if it means struggling.")
+            break
+        else:
+            print("That was not a valid choice, please try again.")
 
 
 def day14():
-    print(14)
+    print("You wake up to some odd scratching, but think nothing of it. \n\n Dr.Tucker was doing an inspection of some of your supplies and dropped the flashlight onto the floor. It stopped working and Dr.Tucker is attempting to fix it. Maybe if Ella was here, she could have helped. You also notice some odd bitemarks on the floor...") # Dr.Tucker may be out of the bunker (day 11/12)
+    del (player.inventory.item_list["flashlight"])
 
 
 def day15():
-    print(15)
+    print("Mick was looking at the map while having some canned soup and accidently spilled it. Now you can't see anything on it, but it doesn't really matter anyway. The atmosphere got a bit more tense.")
+    with open(map_file, "w") as file:
+        file.write(tabulate(ruined_map, tablefmt = "fancy_grid"))
+    check_map()
+    
 
 
 def day16():
@@ -448,7 +533,7 @@ def day():
                 choice = False
         else:
             print("That is not a valid option.")
-    
+
 days = {"day1": day1, "day2": day2, "day3": day3, "day4": day4, "day5": day5,
         "day6": day6, "day7": day7, "day8": day8, "day9": day9, "day10": day10,
         "day11": day11, "day12": day12, "day13": day13, "day14": day14,
@@ -464,12 +549,12 @@ def game():
     status is dead before day 20, the end function is called, otherwise
     the win function is called.
     """
-    day_count = 10
-    while player.status and day_count<21:
+    day_count = 1
+    while player.status and (not player.infected) and day_count<21:
         # Print and call days
-        print(f"It is day {day_count}.\n")
+        print(f"-----------------------\nIt is day {day_count}.\n-----------------------\n")
         days[f"day{str(day_count)}"]()
-        if player.status:
+        if player.status and (not player.infected):
             day()
             day_count += 1
             # Take away daily ration of food and water
@@ -479,7 +564,7 @@ def game():
             if (player.inventory.item_list["water"]["value"]==0 or
                 player.inventory.item_list["food"]["value"]==0):
                 player.status = False
-    if not player.status:
+    if not player.status or player.infected:
         end()
     else:
         win()
@@ -491,7 +576,6 @@ make_map()
 # Create storage
 player_items = Storage(items)
 # Create characters
-
 player = Character("Bob", "player", "description", True, False, player_items)
 DrTucker = Character(npc["dr.tucker"]["name"], npc["dr.tucker"]["role"],
                      npc["dr.tucker"]["description"],
