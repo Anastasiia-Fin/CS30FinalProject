@@ -483,13 +483,17 @@ def day13():
 
 
 def day14():
-    print("You wake up to some odd scratching, but think nothing of it. \n\n Dr.Tucker was doing an inspection of some of your supplies and dropped the flashlight onto the floor. It stopped working and Dr.Tucker is attempting to fix it. Maybe if Ella was here, she could have helped. You also notice some odd bitemarks on the floor...") # Dr.Tucker may be out of the bunker (day 11/12)
+    characters = check_chars()
+    character = characters[1]
+    print(f"You wake up to some odd scratching, but think nothing of it. \n\n {character.name} was doing an inspection of some of your supplies and dropped the flashlight onto the floor. It stopped working and {character.name} is attempting to fix it. Maybe if Ella was here, she could have helped. You also notice some odd bitemarks on the floor...") # Dr.Tucker may be out of the bunker (day 11/12)
     del (player.inventory.item_list["flashlight"])
 
 
 def day15():
-    print("Mick was looking at the map while having some canned soup and accidently spilled it. Now you can't see anything on it, but it doesn't really matter anyway. The atmosphere got a bit more tense. You also find some small holes around your bunker, they almost look like they could be rat holes.")
-    with open(map_file, "w") as file:
+    characters = check_chars()
+    character = characters[2]
+    print(f"{character.name} was looking at the map while having some canned soup and accidently spilled it. Now you can't see anything on it, but it doesn't really matter anyway. The atmosphere got a bit more tense. You also find some small holes around your bunker, they almost look like they could be rat holes.")
+    with open(map_file, "w", encoding="utf-8") as file:
         file.write(tabulate(ruined_map, tablefmt = "fancy_grid"))
     check_map()
 
