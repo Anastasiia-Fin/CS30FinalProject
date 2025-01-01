@@ -8,7 +8,7 @@
 """
     Character class and main functions, map and main logic, Storage
     class, chat function basic, specific dialogue, character
-    descriptions, introduction, days 1-5, fight logic
+    descriptions, introduction, days 1-5, fight logic, days 6-10, days 11-15, days 16-20
 """
 ###############################################################################
 # Imports and Global Variables-------------------------------------------------
@@ -482,11 +482,11 @@ def day13():
             print("That was not a valid choice, please try again.")
 
 
-def day14():
-    characters = check_chars()
-    character = characters[1]
-    print(f"You wake up to some odd scratching, but think nothing of it. \n\n {character.name} was doing an inspection of some of your supplies and dropped the flashlight onto the floor. It stopped working and {character.name} is attempting to fix it. Maybe if Ella was here, she could have helped. You also notice some odd bitemarks on the floor...") # Dr.Tucker may be out of the bunker (day 11/12)
-    del (player.inventory.item_list["flashlight"])
+    def day14():
+        characters = check_chars()
+        character = characters[1]
+        print(f"You wake up to some odd scratching, but think nothing of it. \n\n {character.name} was doing an inspection of some of your supplies and dropped the flashlight onto the floor. It stopped working and {character.name} is attempting to fix it. Maybe if Ella was here, she could have helped. You also notice some odd bitemarks on the floor...") # Dr.Tucker may be out of the bunker (day 11/12)
+        del (player.inventory.item_list["flashlight"])
 
 
 def day15():
