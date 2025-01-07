@@ -116,11 +116,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Check if player is dead after the day function is run in the game function main logic so that in case the player is dead, the day does not continue on (Anastasiia)
 
-### Fixed
-
-- Fix typos in recent README changes.
-- Update outdated unreleased diff link.
-
 ## [3.3] - 2024-12-22
 
 ### Added
@@ -132,45 +127,52 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Spelling and grammar mistakes
 
-## [0.0.6] - 2014-12-12
+## [3.4] - 2024-12-12
 
 ### Added
 
-- README section on "yanked" releases.
+- check_chars function to check for alive characters using object attributes and return a list (Anastasiia)
+- Days 11-15 (Anastasiia)
+- Gave option to kill off character and save rations, which affect the user's survival results (Anastasiia)
+- Added a ruined ruined map list that will print instead of actual map on day 15 (Anastasiia)
 
-## [0.0.5] - 2014-08-09
-
-### Added
-
-- Markdown links to version tags on release headings.
-- Unreleased section to gather unreleased changes and encourage note
-  keeping prior to releases.
-
-## [0.0.4] - 2014-08-09
+## [3.5] - 2025-01-09
 
 ### Added
 
-- Better explanation of the difference between the file ("CHANGELOG")
-  and its function "the change log".
+- Finish writting the storyline for days 16-20 (Kiera and Anastasiia)
+- Mick fighting function (Kiera)
+- Day 16 fight function with rats (Anastasiia)
+- Day 17 storyline choice (eat the rats) (Kiera and Anastasiia)
+- Day 18 character development (Anastasiia and Kiera)
+- Day 19 storyline choice (Kiera)
+- Wrote endings to story (Kiera)
+- Ending logic in main game function (Anastasiia)
+
+## [3.6] - 2025-01-07
+
+### Added
+
+- Made Tic, Tac, Toe game (Kiera)
+- Made hangman game (Anastasiia)
+- Made rock, paper, scissors game (Anastasiia)
+- Dialogue for characters in chat function (Kiera)
+- Randomizer for dialogue (Anastasiia)
 
 ### Changed
 
-- Refer to a "change log" instead of a "CHANGELOG" throughout the site
-  to differentiate between the file and the purpose of the file — the
-  logging of changes.
+- Split game into modules (Kiera and Anastasiia)
+- Made map function more modular, map is passed to map function (Anastasiia)
 
-### Removed
+### Fixed
 
-- Remove empty sections from CHANGELOG, they occupy too much space and
-  create too much noise in the file. People will have to assume that the
-  missing sections were intentionally left out because they contained no
-  notable changes.
+- Formating; docstrings, comments, and line length (Anastasiia and Kiera)
 
-## [0.0.3] - 2014-08-09
+## [3.7] - 2025-01-__
 
 ### Added
 
-- "Why should I care?" section mentioning The Changelog podcast.
+- 
 
 ## [0.0.2] - 2014-07-10
 
