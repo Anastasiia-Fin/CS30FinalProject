@@ -16,25 +16,25 @@ npc = {"dr.tucker": {"name": "dr.tucker", "role": "doctor",
                                   + " worried.", "I wish I was helping people" 
                                   + " in the hospital and not stuck in this"
                                   + " bunker. At least we have shelter.", 
-                                  "I hope i can be good help taking care" 
-                                  + " everyone."]},
+                                  "I hope I can be good help taking care" 
+                                  + " of everyone."]},
        "ella": {"name": "ella", "role": "mechanic",
                 "description": "Ella is a layed-back mechanic who can keep "
                 + "calm in stressfull times. She's good to have on your team.",
                 "status": True, "infected": False, 
                 "dialogue": ["It sure is stuffy being lock in here, but we can"
-                             + " get through this!", "Hey if you ever need" 
-                             + " help fixing stuff, I am your gal!", "Being"
+                             + " get through this!", "Hey, if you ever need" 
+                             + " help fixing stuff, I'm your gal!", "Being"
                              + " stuck down here sucks! I totally miss my"
-                             + " work desk."]},
+                             + " work bench."]},
        "mick": {"name": "mick", "role": "comedian",
                 "description": "Mick is a silly comedian, cracking jokes" 
                 + " at any chance he gets. He may actually help"
                 + " to keep your team sane.", 
                 "status": True, "infected": False,
                 "dialogue": ["Why did the zombie go to see the doctor?"
-                             + " beacause he was coffin!", "What kind of" 
-                             + " zombie doesn't laugh at my jokes? a dead"
+                             + " Beacause he was coffin!", "What kind of" 
+                             + " zombie doesn't laugh at my jokes? A dead"
                              + " serious one!", "Whats a zombie's"
                              + " favourite weather? B-rain!"]},
        "katie": {"name": "katie", "role": "FBI agent",
@@ -50,15 +50,17 @@ npc = {"dr.tucker": {"name": "dr.tucker", "role": "doctor",
 }
 
 class Character:
-  """ This class creates characters using passed values.
-  name = name of character.
-  role = role of character.
-  description = description of character.
-  status = status of character.
-  infected = status of whether character is infected or helathy.
-  inventory = inventory of character.
+  """ This class creates all the characters in the game with their
+  custom statuses and information.
   """
   def __init__(self, name, role, description, status, infected, inventory):
+      """ This function creates the characters using passed values.
+      name = name of character.
+      role = role of character.
+      description = description of character.
+      status = status of character.
+      infected = status of whether character is infected or helathy.
+      inventory = inventory of character."""
       self.name = name
       self.role = role
       self.description = description
@@ -67,13 +69,14 @@ class Character:
       self.inventory = inventory
 
   def __str__(self):
+      """ """
       message1 = f"Attributes: {self.name}, {self.role}, {self.description},"
       message2 = f" {self.status}, {self.infected}, {self.inventory}"
       return message1 + message2
 
 
 # Create characters
-player = Character("Bob", "player", "description", True, False, i.player_items)
+player = Character("N/A", "player", "description", True, False, i.player_items)
 DrTucker = Character(npc["dr.tucker"]["name"], npc["dr.tucker"]["role"],
                      npc["dr.tucker"]["description"],
                      npc["dr.tucker"]["status"], npc["dr.tucker"]["infected"],

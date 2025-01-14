@@ -56,6 +56,7 @@ def tie():
 
 
 def reset_board():
+    '''This function resets the board.'''
     global board
     board = [["1", "2", "3"],
              ["4", "5", "6"],
@@ -66,8 +67,10 @@ def tic_tac_toe(opponent):
   '''
   Main game function. Includes the players input, the computer's turn,
   and calls tie or win functions.
+  Opponent takes a random alive character, and plays as the computer.
   '''
-  print(f"You are playing Tic, Tac, Toe {opponent.title()}!")
+  print(f"You are playing Tic, Tac, Toe {opponent.title()}! \nPick an available"
+        + " number of your choice to place your mark.")
   while True:
     print("Your turn!")
     print_board()
@@ -82,7 +85,8 @@ def tic_tac_toe(opponent):
         if board[row][col]not in ["X", "O"]:
             board[row][col] = "X"
         else:
-            print("That's not a choice. Pick an available number on the board.")
+            print("That's not a choice. Pick an available"
+                  + " number on the board.")
             continue
         if check_win("X"):
             print_board()

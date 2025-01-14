@@ -12,10 +12,11 @@ def rock_paper_scissors(opponent):
     with what the opponent chose if relevant.
     opponent: the NPC the character is playing against.
     """
-    print(f"You are playing Rock, Paper, Scissors against {opponent.title()}.")
+    print(f"You are playing rock, paper, scissors against {opponent.title()}")
     options = ["rock", "paper", "scissors"]
     while True:
-        user_choice = input("What would you like to choose (rock, paper, scissors): ").lower()
+        user_choice = input("What would you like to choose"
+                            + " (rock, paper, scissors): ").lower()
         # Check if user's choice is valid.
         if user_choice in options:
             # Generate opponent's random choice.
@@ -26,9 +27,11 @@ def rock_paper_scissors(opponent):
             elif ((user_choice=="rock" and generated_choice=="scissors")
                   or (user_choice=="paper" and generated_choice=="rock")
                   or (user_choice=="scissors" and generated_choice=="paper")):
-                print(f"{opponent.title()} chose {generated_choice}, you won!")
+                print(f"{opponent.title()} chose {generated_choice},"
+                      + " you won!")
             else:
-                print(f"{opponent.title()} chose {generated_choice}, you lost.")
+                print(f"{opponent.title()} chose {generated_choice},"
+                      + " you lost.")
             break
         else:
             print("That was an invalid option, please try again!")

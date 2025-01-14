@@ -18,10 +18,12 @@ rooms = {"storage": {"description": "You walk into the small storage "
           + "chairs. A cabinate sits on the wall with limited "
           + "resources."}}
 
+# Starting map
 map = [["Storage", "Washroom"],
 ["Main Room"],
 ["Utility", "Medical Room"]]
 
+# Runied map comes in later in the game
 ruined_map = [["----------", "----------"],
 ["----------"],
 ["----------", "----------"]]
@@ -62,6 +64,7 @@ def check_map():
 
 
 def make_map(map_version):
-  """ This function creates the map in an external file. """
+  """ This function creates the map in an external file. 
+  map_version calls the current version in the story."""
   with open(map_file, "w", encoding='utf-8') as file:
       file.write(tabulate(map_version, tablefmt = "fancy_grid"))

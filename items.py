@@ -1,13 +1,14 @@
 ###############################################################################
 """
     This module contains The items dictionary with the name,
-    description, and value of each item. It also contains the storage class.
+    description, and value of each item. It also contains the storage
+    class.
 """
 ###############################################################################
 items = {"water": {"name": "water", 
-           "description": "You pick up a bottle of water." 
-           + " Super refreshing.", 
-           "value": 23},
+                   "description": "You pick up a bottle of water." 
+                   + " Super refreshing.", 
+                   "value": 23},
  "food": {"name": "food", 
           "description": "You grab a can of food off the shelf." 
           + " Looks unappetizing.", 

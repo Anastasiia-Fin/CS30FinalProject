@@ -10,8 +10,8 @@ words = ["bunker", "survival", "biography", "auction", "dress", "prescription",
          "understand", "humanity", "question", "authority", "education",
          "company", "horoscope", "terminal", "python"]
 
-hangman_pic = [" ----------\n   |     |\n   |\n   |\n   |\n   |\n   |\n   |\n "
-               + "----------",
+hangman_pic = [" ----------\n   |     |\n   |\n   |\n   |\n   |\n   |\n   |\n"
+               + " ----------",
                " ----------\n   |     |\n   |     O\n   |\n   |\n   |\n   "
                + "|\n   |\n ----------",
                " ----------\n   |     |\n   |     O\n   |     |\n   |\n   "
@@ -40,17 +40,21 @@ def hangman():
                 "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
                 "y", "z"]
     # Letters that the player has not used.
-    letters_remaining = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
-                         "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
-                         "w", "x", "y", "z"]
+    letters_remaining = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+                         "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
+                         "u", "v", "w", "x", "y", "z"]
     # Pick a random word from list.
     word = r.choice(words)
     lives = 7
     # Create a list of underscores to represent the word.
     printed_word = list("_"*len(word))
-    print(f'{" ".join(printed_word)}\n')
     # List of options user can choose.
     options = ["word", "letter", "quit"]
+    # Instructions
+    print("\nWelcome to Hangman! You have 7 lives to guess the word."
+         + " You can guess the word, letter, or quit. Making a mistakes does"
+         + " not take away a life. Enjoy!\n")
+    print(f'{" ".join(printed_word)}\n')
     while lives>0 and ("".join(printed_word) != word):
         # Print options.
         for option in options:
@@ -69,7 +73,9 @@ def hangman():
                 print("That was an incorrect guess.")
                 lives -= 1
                 print(hangman_pic[7-lives])
-                print(f"{lives} mistakes remaining.")
+                # Print the word with the underscore and letters.
+                print(" ".join(printed_word))
+                print(f"{lives} mistake(s) remaining.\n")
         elif user_choice == "letter":
             user_letter = (str(input("Pick a letter"
                                      + f"({', '.join(letters_remaining)}):"
@@ -92,7 +98,9 @@ def hangman():
                     print("Not in word.")
                     lives -= 1
                     print(hangman_pic[7-lives])
-                    print(f"{lives} mistakes remaining.")
+                    # Print the word with the underscore and letters.
+                    print(" ".join(printed_word))
+                    print(f"\n{lives} mistake(s) remaining.\n")
             # Check if user has already guessed the letter.
             elif user_letter in alphabet:
                 print("You already guessed that letter, try another one!")

@@ -9,7 +9,7 @@ def gun():
     """ This function is used to fight with a gun. """
     print("\nYou quickly pull out the gun, aiming it at your enemy, shooting"
           + " point blank. You've killed your enemy, but now have no"
-          + " ammunition.")
+          + " ammunition.\n")
     # Delete items used from player's inventory and menu.
     del ch.player.inventory.item_list["ammunition"]
     del ch.player.inventory.item_list["weapons"]["gun"]
@@ -20,7 +20,7 @@ def axe():
     """ This function is used to fight with an axe."""
     print("\nYou quickly grab the axe, swinging it at your enemy. It was a"
           + " direct hit and they fall to the ground. Your axe shatters after"
-          +" the attack, making it unusable.")
+          +" the attack, making it unusable.\n")
     # Delete items used from player's inventory and menu.
     del ch.player.inventory.item_list["weapons"]["axe"]
     del fight_menus["weapons"]["axe"]
@@ -30,9 +30,9 @@ def hands():
     """ This function is used to fight with hands."""
     # What happens if Katie is still alive.
     if ch.Katie.status:
-        print("\nYou ball your hands up into fists, ready to take on your."
-              + " enemy. You were unsucessful, as your hands were not the best"
-              + " choice of weapon.")
+        print("\nYou ball your hands up into fists, ready to take on your"
+              + " enemy. You were unsucessful, as your hands were not the"
+              + " best choice of weapon.\n")
         # Kill player.
         ch.player.status = False
     # What happens after Katie is dead.
@@ -71,26 +71,27 @@ def run():
     """ This function is used to run from a fight and kills the player
     if chosen.
     """
-    print("You try to run, but you fail.")
+    print("\nYou try to run, but you fail.\n")
     ch.player.status = False
 
 
 def punch():
     """ This function is used to punch Mick. """
-    print("You punch Mick swiftly as he fights you back.")
+    print("\nYou punch Mick swiftly as he fights you back.\n")
 
 
 def kick():
     """ This function is used to kick Mick. """
-    print("You kick Mick over, but he grabs you, pulling you down.")
+    print("\nYou kick Mick over, but he grabs you, pulling you"
+          + " down.\n")
 
 
 def slap():
     """ This function is used to skap Mick, but is not effective at
     stopping him.
     """
-    print("You slap Mick to snap him out! This does nothing and he punches you"
-          + " in the face.")
+    print("\nYou slap Mick to snap him out! This does nothing and he"
+          + " punches you in the face.\n")
     del fight_menus["fight_mick"]["slap"]
     fight_mick()
 
