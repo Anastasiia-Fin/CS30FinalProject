@@ -17,6 +17,7 @@
 import RockPaperScissors as rps
 import TicTacToe as ttt
 import HangMan as hm
+import HideAndSeek as has
 import storyline as sl
 import characters as ch
 import fighting as f
@@ -102,8 +103,11 @@ def pick_game():
         elif choice == "3":
             ttt.tic_tac_toe(character.name)
             break
+        elif choice == "4":
+            has.hide_and_seek(character.name)
+            break
         else:
-            print("That was an improper choice, try again.")
+            print("That was an invalid choice, try again!")
 
 
 def next_day():
@@ -117,7 +121,8 @@ menus = {"game options": {"explore": explore, "chat": chat,
          "room menu": {"storage": m.storage, "washroom": m.washroom,
                         "utility": m.utility, "medical room": m.medical_room},
         "games": {"rock paper scissors": rps.rock_paper_scissors,
-                  "hangman": hm.hangman, "tic tac toe": ttt.tic_tac_toe}}
+                  "hangman": hm.hangman, "tic tac toe": ttt.tic_tac_toe, 
+                  "hide and seek": has.hide_and_seek}}
 
 
 def day():
